@@ -2,8 +2,7 @@ import dotenv from 'dotenv';
 import express from 'express';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
-// import users from './routes/users.js';
-import userController from './controller/userController.js';
+import users from './routes/users.js';
 
 dotenv.config();
 const app = express();
@@ -22,15 +21,10 @@ mongoose.connect(process.env.MONGODB_URI, {
 
 
 app.use(bodyParser.json());
-
-app.get('/users', userController.getAllUsers);
-app.get('/users/:nim', userController.getUserByNIM);
-app.post('/users', userController.createUser);
-app.put('/users/:nim', userController.updateUserByNIM);
-app.delete('/users/:nim', userController.deleteUserByNIM);
+app.use('/', users);
 
 app.get('/', (req, res) => {
-    res.send("Hello from Homepage.!");
+    res.send("Hello from Back End Homepage");
 });
 
 let PORT = process.env.PORT || 5000;
